@@ -1,0 +1,27 @@
+h3 {
+  font-size: 22px;
+  margin: 120px 122px 160px;
+}
+
+h1 {
+  font-size: 96px;
+  margin: 0 402px;
+  line-height: 98px;
+}
+
+.palabra {
+  background-color: none;
+  color: #B2EA99;
+}
+
+p {
+  text-align: center;
+  font-size: 26px;
+  line-height: 36px;
+  margin: 50px 458px;
+}
+
+#btn_mas {
+  font-size: 20px;
+  margin: 0 0 168px 802px;
+}

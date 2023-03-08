@@ -1,0 +1,51 @@
+<div class="wrapper">
+
+  <div *ngIf="!loading" class="body">
+    <img class="logo" src="../../../assets/img/login.png" alt="img login">
+    <div class="input-group mb-3">
+      <span class="input-group-text"><img src="../../../assets/img/user.png" alt=""></span>
+      <div class="form-floating">
+        <input type="text" [(ngModel)]="username" class="form-control" placeholder=" ">
+        <label>Nombre usuario</label>
+      </div>
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text"><img src="../../../assets/img/arroba.png" alt=""></span>
+      <div class="form-floating">
+        <input type="email" [(ngModel)]="email" class="form-control" placeholder=" ">
+        <label>Correo electronico</label>
+      </div>
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text"><img src="../../../assets/img/password.png" alt=""></span>
+      <div class="form-floating">
+        <input [type]="visible1?'password':'text'" [(ngModel)]="password" class="form-control" placeholder=" ">
+        <label>Contraseña</label>
+      </div>
+      <button class="btn btn-outline-secondary" type="button" >
+        <span (click)="togglePassword()">
+          <i [ngClass]="visible1?'fas fa-eye':'fas fa-eye-slash'"></i>
+        </span>
+      </button>
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text"><img src="../../../assets/img/password.png" alt=""></span>
+      <div class="form-floating">
+        <input [type]="visible2?'password':'text'" [(ngModel)]="confirmPassword" class="form-control" placeholder=" ">
+        <label>Repetir contraseña</label>
+      </div>
+      <button class="btn btn-outline-secondary" type="button" >
+        <span (click)="togglePassword()">
+          <i [ngClass]="visible2?'fas fa-eye':'fas fa-eye-slash'"></i>
+        </span>
+      </button>
+    </div>
+    <div class="d-grid gap-2">
+      <button type="button" (click)="addUser()" class="btn btn-outline-primary btn-lg mb-2">Registrarse</button>
+      <span class="volver">
+        <a routerLink="/login" >Volver</a>
+      </span>
+    </div>
+  </div>
+    <app-spinner *ngIf="loading"></app-spinner>
+  </div>

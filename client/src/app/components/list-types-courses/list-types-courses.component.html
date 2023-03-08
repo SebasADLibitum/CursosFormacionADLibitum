@@ -1,0 +1,38 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid mt-3">
+  <div class="bg-light border rounded-3 m-1">
+    <div class="container-fluid">
+      <div class="bg-white border rounded-3 m-2 p-2">
+        <img src="../../../assets/img/curso.png" class="me-3" style="width: 48px;">
+        <span class="text-bg-secondary rounded-5 p-2"> Tipos de cursos
+          en cursos <span class="bg-dark rounded-5 p-2">{{excel.length}}</span>
+        </span>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="bg-white border rounded-3 m-2 p-2">
+        <div class="container-fluid d-flex">
+          <button class="btn btn-outline-primary ms-2 rounded-circle"
+            title="Añadir curso">
+            <i class="fa fa-plus"></i>
+          </button>
+          <button class="btn btn-outline-success ms-2 rounded-circle me-2"
+            title="Importar a Excel">
+            <i class="fa fa-file-excel"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="bg-white border rounded-3 m-2 p-2">
+        <jqxGrid #myGrid
+          [width]="'100%'" [showfilterbar]="true" [source]="typeCourses"
+          [columns]="columns" [filterable]="true" [autoheight]="true"
+          [sortable]="true" [pageable]="true" [columnsresize]="true"
+          [selectionmode]="'multiplecellsextended'" [showfilterrow]="true">
+        </jqxGrid>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,58 @@
+/* body {
+  background-image: url(../../../assets/img/pexels-pavel-danilyuk-7802291.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+} */
+
+.container {
+  margin-top: 2rem;
+}
+
+.card {
+  margin: 10px auto;
+  padding: 2rem 2rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, .5), 0 0 12px rgba(0, 0, 0, .3);
+  transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .8), 0 4px 12px rgba(0, 0, 0, .6);
+  cursor: pointer;
+}
+
+.card1 {
+  background-color: #8DCBE6;
+}
+
+.card2 {
+  background-color: #EDF798;
+}
+
+.card3 {
+  background-color: #FF8C8C;
+}
+
+.card4 {
+  background-color: #FAB57A;
+}
+
+.card5 {
+  background-color: #C1AEFC;
+}
+
+.card6 {
+  background-color: #CDE990;
+}
+
+.card7 {
+  background-color: #FFFBAC;
+}
+
+.card8 {
+  background-color: #92B4EC;
+}

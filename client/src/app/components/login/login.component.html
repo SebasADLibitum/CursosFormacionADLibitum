@@ -1,0 +1,36 @@
+<div class="wrapper">
+  <div *ngIf="!loading" class="body">
+    <img class="logo" src="../../../assets/img/Logo ADLibitum.jpg" alt="img
+      login">
+    <div class="input-group mb-3">
+      <span class="input-group-text"><img src="../../../assets/img/user.png"
+          alt=""></span>
+      <div class="form-floating">
+        <input type="text" [(ngModel)]="username" class="form-control"
+          placeholder=" ">
+        <label>Nombre usuario</label>
+      </div>
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text"><img src="../../../assets/img/password.png"
+          alt=""></span>
+      <div class="form-floating">
+        <input [type]="visible?'password':'text'" [(ngModel)]="password"
+          class="form-control" placeholder=" ">
+        <label>Contraseña</label>
+      </div>
+      <button class="btn btn-outline-secondary" type="button">
+        <span (click)="togglePassword()">
+          <i [ngClass]="visible?'fa fa-eye':'fa fa-eye-slash'"></i>
+        </span>
+      </button>
+    </div>
+    <div class="d-grid gap-2">
+      <button type="button" class="btn btn-outline-primary btn-lg"
+        (click)="login()">Inicia sesion</button>
+    </div>
+    <p class="mt-3"><a href="">¿Has olvidado tu contraseña?</a></p>
+    <p class="mt-3">¿No tienes cuenta? <a routerLink="/register">Registrate</a></p>
+  </div>
+  <app-spinner *ngIf="loading"></app-spinner>
+</div>

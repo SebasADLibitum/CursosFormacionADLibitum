@@ -1,0 +1,44 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+h1 {
+  margin: 42px 35px 22px;
+  font-size: 46px;
+  line-height: 47px;
+}
+
+p {
+  margin: 0px 38px 25px;
+  font-size: 18px;
+  line-height: 25px;
+}
+
+button {
+  margin-bottom: 38px;
+}
+
+@media screen and (min-width: 1024px) {
+  .container-fluid {
+    padding: 0 !important;
+  }
+
+  h1 {
+    margin: 301px 177px 43px 103px;
+    font-size: 96px;
+    line-height: 98px;
+  }
+
+  p {
+    margin: 0px 258px 43px 103px;
+    font-size: 26px;
+    line-height: 36px;
+  }
+
+  button {
+    margin-left: 103px;
+  }
+
+}
