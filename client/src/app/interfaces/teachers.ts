@@ -1,9 +1,9 @@
 export interface Teacher {
   idpersona: number
   nombre: string
-  profesion: string
+  profesion?: string
   dni: string
-  nuss: string
+  nuss?: string
   fecha_nacimiento: Date
   ciudad: string
   provincia: string
@@ -11,9 +11,9 @@ export interface Teacher {
   cp: string
   direccion: string
   telefono1: string
-  telefono2: string
+  telefono2?: string
   email: string
-  web: string
-  codimd5: string
-  caducidadmd5: Date
+  web?: string
+  codimd5?: string
+  caducidadmd5?: Date
 }

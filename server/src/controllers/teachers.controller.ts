@@ -11,8 +11,8 @@ class TeachersController {
                 if (results.length == 0){
                     return res.json({ text: 'No hay profesores dados de alta'})
                 }
-                console.log('Busqueda de todos los profesores realizada con exito');
-                console.log(results);
+                // console.log('Busqueda de todos los profesores realizada con exito');
+                // console.log(results);
                 res.json(results)
             })
     };
@@ -25,14 +25,13 @@ class TeachersController {
                 if (result.length == 0){
                     return res.status(404).json({ text: 'El profesor que buscas no existe'})
                 }
-                console.log('Busqueda de prfesor realizada con exito');
-                console.log(result);
+                // console.log('Busqueda de prfesor realizada con exito');
+                // console.log(result);
                 res.json(result)
             })
     };
     
         public async create(req: Request, res: Response) {
-            
             await mysqlConnection.query('INSERT INTO ng_pruebalanding_db.personas (nombre, profesion, dni, nuss, fecha_nacimiento, ciudad, provincia, pais, cp, direccion, telefono1, telefono2, email, web, codimd5, caducidadmd5) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                 [req.body.nombre || null, req.body.profesion || null, req.body.dni || null, req.body.nuss || null, req.body.fecha_nacimiento || null, req.body.ciudad || null, req.body.provincia || null, req.body.pais || null,
                  req.body.cp || null, req.body.direccion || null, req.body.telefono1 || null, req.body.telefono2 || null, req.body.email || null, req.body.web || null, req.body.codimd5 || null, req.body.caducidadmd5 || null],
@@ -56,6 +55,8 @@ class TeachersController {
     }
 
     public async update(req: Request, res: Response) {
+        console.log('UpDATE')
+        console.log(req.body)
 
         let sql = 'UPDATE ng_pruebalanding_db.personas SET';
         let values = [];

@@ -29,4 +29,6 @@ export class ModalCoursesComponent implements OnInit {
     this.rowData = rowData;
     this.item = rowData.idpresentacion
   }
+
+
 }

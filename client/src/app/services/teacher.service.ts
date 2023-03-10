@@ -24,15 +24,18 @@ export class TeacherService {
     return this.http.get<Teacher>(`${this.myAppUrl}${this.myApiUrlTeachers}/${id}`);
   }
 
-  public addTeacher(teacher: Teacher): Observable<Teacher> {
-    return this.http.post<Teacher>(`${this.myAppUrl}${this.myApiUrlTeachers}`, teacher);
+  addTeacher(teacher: Teacher): Observable<void> {
+    console.log(teacher)
+    return this.http.post<void>(`${this.myAppUrl}${this.myApiUrlTeachers}`, teacher);
   }
 
-  public updateTeacher(id: string, teacher: Teacher): Observable<Teacher> {
-    return this.http.put<Teacher>(`${this.myAppUrl}${this.myApiUrlTeachers}/${id}`, teacher);
+  updateTeacher(id: number, teacher: Teacher): Observable<void> {
+    console.log(id)
+    console.log(teacher)
+    return this.http.put<void>(`${this.myAppUrl}${this.myApiUrlTeachers}/${id}`, teacher);
   }
 
-  deleteteacher(id: number): Observable<Teacher> {
-    return this.http.delete<Teacher>(`${this.myAppUrl}${this.myApiUrlTeachers}/${id}`);
+  deleteteacher(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.myAppUrl}${this.myApiUrlTeachers}/${id}`);
   }
 }

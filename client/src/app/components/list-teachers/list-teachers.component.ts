@@ -19,7 +19,7 @@ export class ListTeachersComponent implements OnInit {
   columns: any[] = [];
 
   @ViewChild('myGrid', { static: false }) myGrid: any = jqxGridComponent;
-  @ViewChild('myModal') myModal: any = ModalCoursesComponent;
+  @ViewChild('addUserModal') addUserModal: any = ModalCoursesComponent;
 
   constructor(private teacherService: TeacherService, private toastr: ToastrService) { }
 
@@ -27,6 +27,7 @@ export class ListTeachersComponent implements OnInit {
     this.teacherService.getTeachers().subscribe({
       next: (data) => {
         this.excel = data
+        console.log(this.excel)
         this.teachers = new jqx.dataAdapter({
           datafields: [
             { name: 'idpersona', },
@@ -71,6 +72,27 @@ export class ListTeachersComponent implements OnInit {
     XLSX.writeFile(workbook, 'Altas profesores.xlsx');
     this.toastr.success('Datos exportados a Excel correctamente', 'Succes :')
 
+  }
+
+  selectedItem: any;
+
+  Rowclick(event: any): void {
+
+    const row = this.myGrid.getrowdata(event.args.rowindex);
+    console.log(row)
+    this.addUserModal.open(row);
+    this.selectedItem = row.idpresentacion
+    this.myGrid.elementRef.nativeElement.setAttribute("data-bs-toggle", "modal")
+    this.myGrid.elementRef.nativeElement.setAttribute("data-bs-target", "#addUserModal")
+  }
+
+  hideModal(): void {
+    this.myGrid.elementRef.nativeElement.removeAttribute("data-bs-toggle")
+    this.myGrid.elementRef.nativeElement.removeAttribute("data-bs-target")
+  }
+
+  borrarDatos(): void{
+    this.addUserModal.borrar();
   }
 
 }

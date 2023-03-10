@@ -1,22 +1,64 @@
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1"
-  aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade modal-xl " id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close"
-          data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title" id="addUserModalLabel">{{modo}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form class="row">
+          <div class="mb-3 col-md-6">
+            <label class="col-form-label">Nombre:</label>
+            <input type="text" [(ngModel)]="teacher.nombre" name="nombre" class="form-control" >
+          </div>
+          <div class="mb-3 col-md-6">
+            <label class="col-form-label">Dni:</label>
+            <input type="text" [(ngModel)]="teacher.dni" name="dni" class="form-control">
+          </div>
+          <div class="mb-3 col-md-6">
+            <label class="col-form-label">Nuss:</label>
+            <input type="text" [(ngModel)]="teacher.nuss" name="nuss" class="form-control">
+          </div>
+          <div class="mb-3 col-md-6">
+            <label class="col-form-label">Fecha Nacimiento:</label>
+            <input type="date" [(ngModel)]="teacher.fecha_nacimiento" name="fecha_nacimiento"  class="form-control" value="{{teacher.fecha_nacimiento}}">
+          </div>
+          <div class="mb-3 col-md-6">
+            <label class="col-form-label">Ciudad:</label>
+            <input type="text" [(ngModel)]="teacher.ciudad" name="ciudad" class="form-control">
+          </div>
+          <div class="mb-3 col-md-6">
+            <label class="col-form-label">Provincia:</label>
+            <input type="text" [(ngModel)]="teacher.provincia" name="provincia" class="form-control">
+          </div>
+          <div class="mb-3 col-md-6">
+            <label class="col-form-label">Codigo Postal:</label>
+            <input type="text" [(ngModel)]="teacher.cp" name="cp" class="form-control">
+          </div>
+          <div class="mb-3 col-md-6">
+            <label class="col-form-label">Direccion:</label>
+            <input type="text" [(ngModel)]="teacher.direccion" name="direccion" class="form-control">
+          </div>
+          <div class="mb-3 col-md-6">
+            <label class="col-form-label">Teléfono:</label>
+            <input type="tel" [(ngModel)]="teacher.telefono1" name="telefono1" class="form-control">
+          </div>
+          <div class="mb-3 col-md-6">
+            <label  class="col-form-label">Correo electrónico:</label>
+            <input type="email" [(ngModel)]="teacher.email" name="email" class="form-control">
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary"
-          data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary"  (click)="addUser()" #myDiv>Añadir usuario</button>
+        <button type="button" class="btn btn-danger"  (click)="deleteUser(teacher.idpersona)" #myDiv>Borrar usuario</button>
       </div>
     </div>
   </div>
+  <app-spinner *ngIf="loading"></app-spinner>
 </div>
+
+
+

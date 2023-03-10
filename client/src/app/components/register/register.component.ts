@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
 
     if (this.password != this.confirmPassword) {
       this.toastr.error('Las contraseñas no coinciden', 'Error :')
-
+      return;
     }
 
     const user: User = {
