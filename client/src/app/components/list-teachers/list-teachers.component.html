@@ -14,14 +14,12 @@
     <div class="container-fluid">
       <div class="bg-white border rounded-3 m-2 p-2">
         <div class="container-fluid d-flex">
-          <button type="button" class="btn btn-outline-primary ms-2 rounded-circle" title="Añadir curso" data-bs-toggle="modal" data-bs-target="#addUserModal" (click)="borrarDatos()">
+          <button type="button" class="btn btn-outline-primary ms-2 rounded-circle"
+            title="Añadir profesor" data-bs-toggle="modal" data-bs-target="#addUserModal" (click)="borrarDatos()">
             <i class="fa fa-plus"></i>
           </button>
-          <button class="btn btn-outline-success ms-2 rounded-circle me-2" (click)="exportToExcel(teachers)" title="Exportar a Excel">
+          <button class="btn btn-outline-success ms-2 rounded-circle me-2" (click)="exportToExcel(excel)" title="Exportar a Excel">
             <i class="fa fa-file-excel"></i></button>
-          <button class="btn btn-outline-danger rounded-circle me-2" title="Exportar a Excel">
-            <i class="fa fa-file-pdf"></i>
-          </button>
         </div>
       </div>
     </div>
@@ -38,4 +36,4 @@
     </div>
   </div>
 </div>
-<app-add-edit-teachers  [item]="selectedItem" #myModal #addUserModal></app-add-edit-teachers>
+<app-add-edit-teachers  [item]="selectedItem" #addUserModal></app-add-edit-teachers>

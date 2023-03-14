@@ -12,8 +12,8 @@ class UsersController {
                 if (result.length == 0) {
                     return res.status(400).json({ text: 'No hay usuarios en el sistema' })
                 }
-                console.log('Busqueda de todos los usuarios realizada con exito');
-                console.log(result);
+                // console.log('Busqueda de todos los usuarios realizada con exito');
+                // console.log(result);
                 res.json(result)
             })
     };
@@ -26,8 +26,8 @@ class UsersController {
                 if (result.length == 0) {
                     return res.status(400).json({ text: 'El usuario que buscas no existe' })
                 }
-                console.log('Busqueda de usuario realizada con exito');
-                console.log(result);
+                // console.log('Busqueda de usuario realizada con exito');
+                // console.log(result);
                 res.json(result)
             })
     };
@@ -40,9 +40,9 @@ class UsersController {
             [username || null, email || null, passwordHash || null],
             (error, result) => {
                 if (error) return res.status(400).json({text: 'Este usuario ya existe', error: error });
-                console.log('Usuario creado con exito');
-                console.log(`Usuario ${username} creado con exito`)
-                console.log(result);
+                // console.log('Usuario creado con exito');
+                // console.log(`Usuario ${username} creado con exito`)
+                // console.log(result);
                 res.json(result);
             });
     }
@@ -52,7 +52,7 @@ class UsersController {
             (error, results) => {
                 if (error) return res.status(400).json({ error: error });
 
-                console.log('Usuario eliminado con exito');
+                // console.log('Usuario eliminado con exito');
                 res.json(results);
             }
         );
@@ -81,8 +81,8 @@ class UsersController {
         await mysqlConnection.query(sql, values,
             (error, result) => {
                 if (error) return res.status(400).json({ error: error });
-                console.log('Usuario actualizado con exito');
-                console.log(result);
+                // console.log('Usuario actualizado con exito');
+                // console.log(result);
                 res.json(result);
             });
     }

@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TeacherService } from 'src/app/services/teacher.service';
 import { Teacher } from 'src/app/interfaces/teachers';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
+
 
 
 @Component({
@@ -12,10 +12,12 @@ import { DatePipe } from '@angular/common';
   templateUrl: './add-edit-teachers.component.html',
   styleUrls: ['./add-edit-teachers.component.css']
 })
-export class AddEditTeachersComponent implements OnInit {
+export class AddEditTeachersComponent {
 
   loading: boolean = false;
-  modo: string = 'Añadir nuevo usuario';
+  isRequired: boolean = false;
+  modo: string = 'Añadir';
+
   @Input() item: any;
   @Input() rowData: any;
   teacher: Teacher = {
@@ -32,30 +34,25 @@ export class AddEditTeachersComponent implements OnInit {
     email: ''
   };
 
-  constructor(private teacherService: TeacherService, private toastr: ToastrService, private router: Router) { }
+  constructor(private teacherService: TeacherService, private toastr: ToastrService, private router: Router, private http: HttpClient) { }
 
-  ngOnInit(): void {
-
-
-  }
 
   addUser() {
-
     if (this.teacher.nombre == '' || this.teacher.dni == '' || this.teacher.ciudad == '' || this.teacher.provincia == '' || this.teacher.cp == '' || this.teacher.direccion == '' || this.teacher.telefono1 == '' || this.teacher.email == '') {
       this.toastr.error('Debe rellenar todos los campos', 'Error :')
-
+      this.router.navigateByUrl("/teachers")
     } else {
-
       if (!this.validarDni(this.teacher.dni)) {
         this.toastr.error('El DNI introducido no es correcto', 'Error :')
-
+        this.router.navigateByUrl("/teachers")
       } else {
-        console.log(this.teacher.idpersona)
         if (this.teacher.idpersona) {
+          console.log('Hay ID')
+
           this.teacher = {
             idpersona: this.teacher.idpersona,
             nombre: this.teacher.nombre,
-            profesion: '',
+            profesion: this.teacher.profesion,
             dni: this.teacher.dni,
             nuss: this.teacher.nuss,
             fecha_nacimiento: this.teacher.fecha_nacimiento,
@@ -65,41 +62,32 @@ export class AddEditTeachersComponent implements OnInit {
             cp: this.teacher.cp,
             direccion: this.teacher.direccion,
             telefono1: this.teacher.telefono1,
-            telefono2: '',
+            telefono2: this.teacher.telefono2,
             email: this.teacher.email.toLowerCase(),
-            web: '',
-            codimd5: '',
-            caducidadmd5: new Date()
-
+            web: this.teacher.web,
+            codimd5: this.teacher.codimd5,
+            caducidadmd5: this.teacher.caducidadmd5
           }
 
           this.loading = true;
-
-          console.log(this.teacher)
-          console.log(this.teacher.idpersona)
-
           this.teacherService.updateTeacher(this.teacher.idpersona, this.teacher).subscribe({
             next: (data) => {
-              // this.router.navigate(['/teachers']);
-              console.log(data)
-              console.log('first')
+              this.router.navigate(['/dashboard']);
             },
             error: (err: HttpErrorResponse) => {
-              if (err.error.text) {
-                this.toastr.error(err.error.text, 'Error :')
-              } else {
-                this.toastr.error('Upps, ha ocurrido un error con el servidor.\n Por favor, pongase en contacto con el administrador.', 'Error :')
-              }
+              if (err.error.text) { this.toastr.error(err.error.text, 'Error :') }
+              else { this.toastr.error('Upps, ha ocurrido un error con el servidor.\n Por favor, pongase en contacto con el administrador.', 'Error :') }
               this.loading = false;
               console.log(err)
             },
             complete: () => {
-              this.loading = false;
-              this.toastr.success('Usuario registrado con exito', 'Succes :')
+              this.loading = false; this.toastr.success('Usuario registrado con exito', 'Succes :')
+
             },
           });
 
         } else {
+          console.log('No hay ID')
           this.teacher = {
             idpersona: this.teacher.idpersona,
             nombre: this.teacher.nombre,
@@ -120,7 +108,7 @@ export class AddEditTeachersComponent implements OnInit {
 
           this.teacherService.addTeacher(this.teacher).subscribe({
             next: (data) => {
-              this.router.navigate(['/teachers']);
+              this.router.navigate(['/dashboard']);
             },
             error: (err: HttpErrorResponse) => {
               if (err.error.text) {
@@ -145,7 +133,13 @@ export class AddEditTeachersComponent implements OnInit {
 
   open(rowData: any) {
 
-    this.modo = 'Editar Usuario'
+    this.modo = 'Editar'
+    this.isRequired = false
+    if (rowData.fecha_nacimiento == null) {
+      const fecha = new Date("1900/01/01 20:30:45")
+      rowData.fecha_nacimiento = fecha;
+    }
+
     this.teacherService.getTeacher(rowData.idpersona).subscribe({
       next: () => {
         this.teacher = {
@@ -172,7 +166,8 @@ export class AddEditTeachersComponent implements OnInit {
   }
 
   public borrar() {
-    this.modo = 'Añadir nuevo usuario';
+    this.modo = 'Añadir';
+    this.isRequired = true
     this.teacher = {
       idpersona: 0,
       nombre: '',
@@ -203,27 +198,42 @@ export class AddEditTeachersComponent implements OnInit {
   }
 
   deleteUser(idpersona: number) {
-    this.teacherService.deleteteacher(this.teacher.idpersona).subscribe({
-      next: () => {
-        console.log(`Se ha borrado el usuario con el ID : ${idpersona}`)
-      },
-      error: (err: HttpErrorResponse) => {
-        if (err.error.text) {
-          this.toastr.error(err.error.text, 'Error :')
-        } else {
-          this.toastr.error('Upps, ha ocurrido un error con el servidor.\n Por favor, pongase en contacto con el administrador.', 'Error :')
+    if (confirm('Estás seguro que deseas eliminar el registro?')) {
+      this.teacherService.deleteteacher(this.teacher.idpersona).subscribe({
+        next: () => {
+          console.log(`Se ha borrado el usuario con el ID : ${idpersona}`)
+          this.router.navigate(['/dashboard']);
+        },
+        error: (err: HttpErrorResponse) => {
+          if (err.error.text) {
+            this.toastr.error(err.error.text, 'Error :')
+          } else {
+            this.toastr.error('Upps, ha ocurrido un error con el servidor.\n Por favor, pongase en contacto con el administrador.', 'Error :')
+          }
+          this.loading = false;
+          console.log(err)
+        },
+        complete: () => {
+          this.loading = false;
+          this.toastr.success('Usuario borrado con exito', 'Succes :')
         }
-        this.loading = false;
-        console.log(err)
-      },
-      complete: () => {
-        this.loading = false;
-        this.toastr.success('Usuario borrado con exito', 'Succes :')
-      },
-
-
-    })
+      })
+    }
   }
 
+  onPostalCodeChange() {
+    const postalCode = this.teacher.cp;
+    if (postalCode && postalCode.length === 5) {
+      // this.http.get(`https://geocode.xyz/${postalCode}?region=ES&auth=448863363299939302052x1702&json=1&scantext=1&geoit=JSON`)
+      this.http.get(`https://api.opencagedata.com/geocode/v1/json?q=${postalCode}&countrycode=es&key=e5830b75b8ba4e11b4264469b1b76318`)
+        .subscribe((data: any) => {
+          if (data.results.length > 0) {
+            const components = data.results[0].components;
+            this.teacher.ciudad = components.city || components.town || components.county;
+            this.teacher.provincia = components.state || components.province || components.region;
+          }
+        });
+    }
+  }
 
 }

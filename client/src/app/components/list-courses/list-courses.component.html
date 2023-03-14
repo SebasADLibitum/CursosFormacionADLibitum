@@ -15,26 +15,26 @@
       <div class="bg-white border rounded-3 m-2 p-2">
         <div class="container-fluid d-flex">
           <button class="btn btn-outline-primary ms-2 rounded-circle"
-            title="Añadir curso" data-bs-toggle="modal" data-bs-target="#addCourseModal">
+            title="Añadir curso" data-bs-toggle="modal" data-bs-target="#addCourseModal" (click)="borrarDatos()">
             <i class="fa fa-plus"></i>
           </button>
-          <button class="btn btn-outline-success ms-2 rounded-circle me-2"
+          <button class="btn btn-outline-success ms-2 rounded-circle"
             (click)="exportToExcel(excel)"
             title="Importar a Excel">
             <i class="fa fa-file-excel"></i>
           </button>
-          <button class="btn btn-outline-danger rounded-circle me-2"
-            (click)="clearFiltering()"
-            title="Borrar filtros">
-            <i class="fa fa-filter"></i>
+          <button class="btn btn-outline-warning ms-2 rounded-circle"
+            (click)="viewProfRegisterd()"
+            title="Ver profesores inscritos en el curso seleccionado">
+            <i class="fa fa-eye"></i>
           </button>
         </div>
       </div>
     </div>
     <div class="container-fluid">
       <div class="bg-white border rounded-3 m-2 p-2 text-center">
-        <jqxGrid #myGrid (onRowdoubleclick)="Rowclick($event)"
-          (click)="hideModal()"
+        <jqxGrid #myGrid (onCellselect)="Rowclick($event)"
+          (onCellunselect)="borrarDatos()"
           [width]="'100%'" [showfilterbar]="true" [source]="courses"
           [columns]="columns" [filterable]="true" [autoheight]="true"
           [sortable]="true" [pageable]="true" [columnsresize]="true"

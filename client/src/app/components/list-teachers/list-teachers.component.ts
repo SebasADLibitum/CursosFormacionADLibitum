@@ -65,13 +65,11 @@ export class ListTeachersComponent implements OnInit {
   }
 
   exportToExcel(data: any[]): void {
-    console.log(this.teachers)
     const worksheet = XLSX.utils.json_to_sheet(data);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Profesores');
     XLSX.writeFile(workbook, 'Altas profesores.xlsx');
     this.toastr.success('Datos exportados a Excel correctamente', 'Succes :')
-
   }
 
   selectedItem: any;

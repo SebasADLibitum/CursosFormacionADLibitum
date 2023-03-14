@@ -1,12 +1,11 @@
-
 export interface Course {
-    idpresentacion?: number
+    idpresentacion: number
     titulo: string
     tipo: number
-    cliente: string
+    cliente?: string
     sitio: string
     fecha: Date
     notas: string
-    registrableweb: boolean
-    camposobligatorios: boolean
+    registrableweb?: number
+    camposobligatorios?: number
 }

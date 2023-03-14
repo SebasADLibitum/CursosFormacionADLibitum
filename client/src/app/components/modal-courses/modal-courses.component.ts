@@ -21,13 +21,16 @@ export class ModalCoursesComponent implements OnInit {
     this.registeredTeachersService.getRegisteredTeachers().subscribe({
       next: (data) => { this.registeredProfs = data },
       error: (err) => { this.toastr.error('No se han podido cargar los datos', 'Error :'), console.log(err) },
-      complete: () => { this.toastr.success('Datos cargado correctamente', 'Succes :'), console.log(this.registeredProfs) }
+      complete: () => { this.toastr.success('Datos cargado correctamente', 'Succes :') }
     })
   }
 
   open(rowData: any) {
+    console.log('first')
     this.rowData = rowData;
     this.item = rowData.idpresentacion
+    console.log(this.rowData)
+    console.log(this.item)
   }
 
 

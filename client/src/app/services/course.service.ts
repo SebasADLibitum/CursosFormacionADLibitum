@@ -23,15 +23,19 @@ export class CoursesService {
     return this.http.get<Course>(`${this.myAppUrl}${this.myApiUrlCourses}/${id}`);
   }
 
-  public addCourse(course: Course): Observable<Course> {
-    return this.http.post<Course>(`${this.myAppUrl}${this.myApiUrlCourses}`, course);
+  addCourse(course: Course): Observable<void> {
+    console.log('Estamos en course Service')
+    console.log(course)
+    return this.http.post<void>(`${this.myAppUrl}${this.myApiUrlCourses}`, course);
   }
 
-  public updateCourse(id: string, course: Course): Observable<Course> {
-    return this.http.put<Course>(`${this.myAppUrl}${this.myApiUrlCourses}/${id}`, course);
+  updateCourse(id: number, course: Course): Observable<void> {
+    console.log(id)
+    console.log(course)
+    return this.http.put<void>(`${this.myAppUrl}${this.myApiUrlCourses}/${id}`, course);
   }
 
-  deleteCourse(id: number): Observable<Course> {
-    return this.http.delete<Course>(`${this.myAppUrl}${this.myApiUrlCourses}/${id}`);
+  deleteCourse(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.myAppUrl}${this.myApiUrlCourses}/${id}`);
   }
 }

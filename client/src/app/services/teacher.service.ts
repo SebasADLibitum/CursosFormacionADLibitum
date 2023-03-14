@@ -1,6 +1,6 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Teacher } from '../interfaces/teachers';
 
 @Injectable({
@@ -25,6 +25,7 @@ export class TeacherService {
   }
 
   addTeacher(teacher: Teacher): Observable<void> {
+    console.log('Estamos en teacher Service')
     console.log(teacher)
     return this.http.post<void>(`${this.myAppUrl}${this.myApiUrlTeachers}`, teacher);
   }

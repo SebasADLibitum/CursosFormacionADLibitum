@@ -2,19 +2,20 @@
 <div class="modal fade modal-xl " id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addUserModalLabel">{{modo}}</h5>
+      <div class="modal-header" [ngStyle]="{ 'background-color': isRequired ? '#0082c8' : '#FFD200' }">
+        <h5 class="modal-title text-light" id="addUserModalLabel">{{modo}} profesor</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <app-spinner *ngIf="loading" ></app-spinner>
       <div class="modal-body">
-        <form class="row">
+        <form class="row" #myForm="ngForm">
           <div class="mb-3 col-md-6">
             <label class="col-form-label">Nombre:</label>
-            <input type="text" [(ngModel)]="teacher.nombre" name="nombre" class="form-control" >
+            <input type="text" [(ngModel)]="teacher.nombre" name="nombre" class="form-control" [required]="isRequired">
           </div>
           <div class="mb-3 col-md-6">
             <label class="col-form-label">Dni:</label>
-            <input type="text" [(ngModel)]="teacher.dni" name="dni" class="form-control">
+            <input type="text" [(ngModel)]="teacher.dni" name="dni" class="form-control" [required]="isRequired">
           </div>
           <div class="mb-3 col-md-6">
             <label class="col-form-label">Nuss:</label>
@@ -22,42 +23,40 @@
           </div>
           <div class="mb-3 col-md-6">
             <label class="col-form-label">Fecha Nacimiento:</label>
-            <input type="date" [(ngModel)]="teacher.fecha_nacimiento" name="fecha_nacimiento"  class="form-control" value="{{teacher.fecha_nacimiento}}">
-          </div>
-          <div class="mb-3 col-md-6">
-            <label class="col-form-label">Ciudad:</label>
-            <input type="text" [(ngModel)]="teacher.ciudad" name="ciudad" class="form-control">
-          </div>
-          <div class="mb-3 col-md-6">
-            <label class="col-form-label">Provincia:</label>
-            <input type="text" [(ngModel)]="teacher.provincia" name="provincia" class="form-control">
+            <input type="date" [(ngModel)]="teacher.fecha_nacimiento" name="fecha_nacimiento"  class="form-control" [required]="isRequired">
           </div>
           <div class="mb-3 col-md-6">
             <label class="col-form-label">Codigo Postal:</label>
-            <input type="text" [(ngModel)]="teacher.cp" name="cp" class="form-control">
+            <input type="text" [(ngModel)]="teacher.cp" name="cp" class="form-control" [required]="isRequired" (input)="onPostalCodeChange()">
+          </div>
+          <div class="mb-3 col-md-6">
+            <label class="col-form-label">Provincia:</label>
+            <input type="text" [(ngModel)]="teacher.provincia" name="provincia" class="form-control" [required]="isRequired">
+          </div>
+          <div class="mb-3 col-md-6">
+            <label class="col-form-label">Ciudad:</label>
+            <input type="text" [(ngModel)]="teacher.ciudad" name="ciudad" class="form-control" [required]="isRequired">
           </div>
           <div class="mb-3 col-md-6">
             <label class="col-form-label">Direccion:</label>
-            <input type="text" [(ngModel)]="teacher.direccion" name="direccion" class="form-control">
+            <input type="text" [(ngModel)]="teacher.direccion" name="direccion" class="form-control" [required]="isRequired">
           </div>
           <div class="mb-3 col-md-6">
             <label class="col-form-label">Teléfono:</label>
-            <input type="tel" [(ngModel)]="teacher.telefono1" name="telefono1" class="form-control">
+            <input type="tel" [(ngModel)]="teacher.telefono1" name="telefono1" class="form-control" [required]="isRequired">
           </div>
           <div class="mb-3 col-md-6">
             <label  class="col-form-label">Correo electrónico:</label>
-            <input type="email" [(ngModel)]="teacher.email" name="email" class="form-control">
+            <input type="email" [(ngModel)]="teacher.email" name="email" class="form-control" [required]="isRequired">
           </div>
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary"  (click)="addUser()" #myDiv>Añadir usuario</button>
-        <button type="button" class="btn btn-danger"  (click)="deleteUser(teacher.idpersona)" #myDiv>Borrar usuario</button>
+      <div class="modal-footer bg-light">
+        <button type="button" class="btn btn-outline-danger" (click)="deleteUser(teacher.idpersona)" data-bs-dismiss="modal" [hidden]="isRequired">Borrar profesor</button>
+        <button type="button" class="btn" [ngClass]="{ 'btn-outline-primary': isRequired, 'btn-outline-warning': !isRequired }" (click)="addUser()" [disabled]="!myForm.valid" data-bs-dismiss="modal">{{modo}} usuario</button>
       </div>
     </div>
   </div>
-  <app-spinner *ngIf="loading"></app-spinner>
 </div>
 
 

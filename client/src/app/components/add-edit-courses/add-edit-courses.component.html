@@ -2,60 +2,45 @@
 <div class="modal fade modal-xl " id="addCourseModal" tabindex="-1" aria-labelledby="addCourseModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addCourseModalLabel">Añadir usuario</h5>
+      <div class="modal-header" [ngStyle]="{ 'background-color': isRequired ? '#0082c8' : '#FFD200' }">
+        <h5 class="modal-title text-light" id="addCourseModalLabel">{{modo}} curso</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <app-spinner *ngIf="loading"></app-spinner>
       <div class="modal-body">
-        <form class="row">
+        <form class="row" #myForm="ngForm">
           <div class="mb-3 col-md-6">
-            <label for="nombre" class="col-form-label">Nombre:</label>
-            <input type="text" class="form-control" id="nombre">
+            <label class="col-form-label">Titulo:</label>
+            <input type="text" [(ngModel)]="course.titulo" name="titulo" class="form-control" [required]="isRequired">
+          </div>
+          <div class="mb-3 col-md-6 form-group" >
+            <label class="col-form-label">Tipo:</label>
+            <select class="form-select" [(ngModel)]="course.tipo" name="tipo">
+              <option *ngFor="let type of typeCourses" [value]="type.id">{{type.nombre}}</option>
+            </select>
+          </div>
+          <div class="mb-3 col-md-12">
+            <label class="col-form-label">Sitio:</label>
+            <input type="text" [(ngModel)]="course.sitio" name="sitio" class="form-control" [required]="isRequired">
           </div>
           <div class="mb-3 col-md-6">
-            <label for="dni" class="col-form-label">Dni:</label>
-            <input type="text" class="form-control" id="dni">
+            <label class="col-form-label">Fecha Inicio:</label>
+            <input type="date" [(ngModel)]="course.fecha" name="fecha" class="form-control" [required]="isRequired">
           </div>
-          <div class="mb-3 col-md-6">
-            <label for="nuss" class="col-form-label">Nuss:</label>
-            <input type="text" class="form-control" id="nuss">
-          </div>
-          <div class="mb-3 col-md-6">
-            <label for="fecha_nacimiento" class="col-form-label">Fecha Nacimiento:</label>
-            <input type="date" class="form-control" id="fecha_nacimiento">
-          </div>
-          <div class="mb-3 col-md-6">
-            <label for="ciudad" class="col-form-label">Ciudad:</label>
-            <input type="text" class="form-control" id="ciudad">
-          </div>
-          <div class="mb-3 col-md-6">
-            <label for="provincia" class="col-form-label">Provincia:</label>
-            <input type="text" class="form-control" id="provincia">
-          </div>
-          <div class="mb-3 col-md-6">
-            <label for="cp" class="col-form-label">Codigo Postal:</label>
-            <input type="text" class="form-control" id="cp">
-          </div>
-          <div class="mb-3 col-md-6">
-            <label for="direccion" class="col-form-label">Direccion:</label>
-            <input type="text" class="form-control" id="direccion">
-          </div>
-          <div class="mb-3 col-md-6">
-            <label for="phone" class="col-form-label">Teléfono:</label>
-            <input type="tel" class="form-control" id="phone">
-          </div>
-          <div class="mb-3 col-md-6">
-            <label for="email" class="col-form-label">Correo electrónico:</label>
-            <input type="email" class="form-control" id="email">
+          <!-- <div class="mb-3 col-md-6">
+            <label class="col-form-label">Fecha Fin:</label>
+            <input type="date" [(ngModel)]="course.fecha" name="fecha" class="form-control" [required]="isRequired">
+          </div> -->
+          <div class="form-group">
+            <label class="col-form-label">Notas:</label>
+            <textarea class="form-control" [(ngModel)]="course.notas" name="notas" rows="3"></textarea>
           </div>
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" (click)="addUser()">Añadir usuario</button>
+      <div class="modal-footer bg-light">
+        <button type="button" class="btn btn-outline-danger" (click)="deleteCourse(course.idpresentacion)" data-bs-dismiss="modal" [hidden]="isRequired">Borrar curso</button>
+        <button type="button" class="btn" [ngClass]="{ 'btn-outline-primary': isRequired, 'btn-outline-warning': !isRequired }" (click)="addCourse()" [disabled]="!myForm.valid" data-bs-dismiss="modal">{{modo}} curso</button>
       </div>
     </div>
   </div>
 </div>
-
-
